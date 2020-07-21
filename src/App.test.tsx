@@ -1,9 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Application', () => {
+  test('should render without props or deps', () => {
+    render(<App />);
+  });
+  test('should render the clipboard history by default', () => {
+    render(<App />);
+    expect(screen.getByTestId('clipboard-history-list')).toBeInTheDocument();
+  });
 });
