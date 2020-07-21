@@ -13,7 +13,7 @@ class ClipboardItem {
     this.type = value.match(/^data:([A-Za-z-+/]+);base64,/) ? 'IMAGE' : 'TEXT';
   }
 
-  public isImage() {
+  public isImage(): boolean {
     return this.type === 'IMAGE';
   }
 }

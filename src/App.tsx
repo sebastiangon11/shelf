@@ -1,9 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
+import { makeStyles, Theme, Drawer } from '@material-ui/core';
 
 import { Header } from './components/Header/Header';
 import { ClipboardHistory } from './components/ClipboardHistory/ClipboardHistory';
-import { makeStyles, Theme, Drawer } from '@material-ui/core';
+import { Notes } from './components/Notes/Notes';
 
 const drawerWidth = 300;
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     border: 0
   },
   main: {
+    height: '100%',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-function App(): JSX.Element {
+const App: React.FC = () => {
   const classes = useStyles();
 
   const [drawer, setDrawer] = React.useState({
@@ -68,9 +70,10 @@ function App(): JSX.Element {
         })}
       >
         <Header title="Shelf" />
+        <Notes />
       </section>
     </React.Fragment>
   );
-}
+};
 
 export default App;

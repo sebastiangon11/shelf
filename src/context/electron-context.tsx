@@ -8,7 +8,7 @@ declare global {
 }
 
 const { electron } = window;
-const { remote, ipcRendered, clipboard, nativeImage } = electron;
+const { remote, clipboard, nativeImage } = electron;
 
 const electronContext = {
   quit: () => remote.getCurrentWindow().close(),

@@ -18,7 +18,7 @@ interface HeaderProps {
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     color: 'rgba(0, 0, 0, 0.87)',
-    background: 'linear-gradient(66deg, rgba(23,73,134,1) 0%, rgba(0,212,255,1) 100%)'
+    background: 'linear-gradient(90deg, rgba(23,73,134,1) 0%, rgba(0,212,255,1) 100%)'
   },
   title: {
     flexGrow: 1,
