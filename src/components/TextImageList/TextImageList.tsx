@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: '0 auto',
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    wordWrap: 'break-word'
   }
 }));
 
