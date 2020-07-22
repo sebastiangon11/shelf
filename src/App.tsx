@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, Drawer } from '@material-ui/core';
 
-import { Header } from './components/Header/Header';
-import { ClipboardHistory } from './components/ClipboardHistory/ClipboardHistory';
-import { Notes } from './components/Notes/Notes';
+import { Header } from './containers/Header/Header';
+import { ClipboardHistory } from './containers/ClipboardHistory/ClipboardHistory';
+import { Notes } from './containers/Notes/Notes';
 
 const drawerWidth = 300;
 
@@ -42,6 +42,7 @@ const App: React.FC = () => {
   });
 
   const toggleDrawer = () => setDrawer({ ...drawer, isOpen: !drawer.isOpen });
+
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.code === 'Semicolon') toggleDrawer();
   };

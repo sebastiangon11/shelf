@@ -2,14 +2,13 @@ import React, { createContext } from 'react';
 
 declare global {
   interface Window {
-    electron: any;
     electronSettings: any;
   }
 }
 
 const { electronSettings } = window;
 
-const settingContext = {
+const storeContext = {
   set: (key: string, value: object) => {
     try {
       electronSettings.setSync(key, JSON.stringify(value));
@@ -28,14 +27,14 @@ const settingContext = {
   }
 };
 
-export const SettingsContext = createContext(settingContext);
+export const StoreContext = createContext(storeContext);
 
 interface contextProps {
   children: JSX.Element;
 }
 
 const Provider = ({ children }: contextProps) => {
-  return <SettingsContext.Provider value={settingContext}>{children}</SettingsContext.Provider>;
+  return <StoreContext.Provider value={storeContext}>{children}</StoreContext.Provider>;
 };
 
-export default { Provider, Consumer: SettingsContext.Consumer };
+export default { Provider, Consumer: StoreContext.Consumer };

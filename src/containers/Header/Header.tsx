@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { SearchBox } from '../SearchBox/SearchBox';
+import { SearchBox } from '../../components/SearchBox/SearchBox';
 import { ElectronContext } from '../../context/electron-context';
 
 interface HeaderProps {

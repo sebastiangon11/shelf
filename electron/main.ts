@@ -31,7 +31,8 @@ const init = async () => {
   const icon = path.join(__dirname, '..', 'src/shared/assets/icons', 'icon.png');
   const webPreferences = {
     preload: path.join(__dirname, 'preload.js'),
-    nodeIntegration: true
+    nodeIntegration: true,
+    enableRemoteModule: true
   };
 
   let width: number = parseInt((screen.getPrimaryDisplay().size.width - 300).toString());

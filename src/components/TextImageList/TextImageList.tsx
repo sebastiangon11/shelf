@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface TextImageListProps {
-  elements: any[];
+  elements?: any[];
   onElementClick?: (element: any) => void;
-  empty: React.ReactNode;
+  empty?: React.ReactNode;
   isImage?: (element: any) => boolean;
   adapter?: {
     value: string;
@@ -34,11 +34,11 @@ interface TextImageListProps {
 }
 
 export const TextImageList: React.FC<TextImageListProps> = ({
-  elements,
-  empty,
+  elements = [],
+  empty = 'No elements to display',
   onElementClick = () => {},
   adapter = { value: 'value', id: 'id' },
-  isImage = (element: any) => false
+  isImage = () => false
 }) => {
   const classes = useStyles();
 
@@ -51,7 +51,7 @@ export const TextImageList: React.FC<TextImageListProps> = ({
       )}
       {elements.map((element) => (
         <React.Fragment key={element[adapter.id || 'id']}>
-          <ListItem onClick={() => onElementClick(element)} button dense>
+          <ListItem component="li" onClick={() => onElementClick(element)} button dense>
             {isImage(element) ? (
               <Avatar className={classes.thumbnail} src={element[adapter.value]} />
             ) : (

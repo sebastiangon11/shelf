@@ -3,7 +3,6 @@ import React, { createContext } from 'react';
 declare global {
   interface Window {
     electron: any;
-    electronSettings: any;
   }
 }
 
