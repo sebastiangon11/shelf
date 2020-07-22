@@ -1,7 +1,7 @@
 import React from 'react';
-import { StoreContext } from '../context/store-context';
-import { ElectronContext } from '../context/electron-context';
-import { ClipboardItem } from '../shared/ClipboardItem';
+import { StoreContext } from '../../context/store-context';
+import { ElectronContext } from '../../context/electron-context';
+import { ClipboardItem } from '../../shared/ClipboardItem';
 
 export const useClipboard = () => {
   const store = React.useContext(StoreContext);
