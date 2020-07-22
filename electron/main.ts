@@ -4,6 +4,8 @@ import electronSettings from 'electron-settings';
 import path from 'path';
 import url from 'url';
 
+console.info('Setting file located at: ', electronSettings.file());
+
 if (process.env.NODE_ENV === 'development') {
   const debug = require('electron-debug');
   debug({ showDevTools: false }); // cmd + opt + I
