@@ -69,13 +69,7 @@ export const TextImageList: React.FC<TextImageListProps> = ({
           <Card raised onClick={() => onElementClick(element)}>
             <CardActionArea>
               {isImage(element) ? (
-                <CardMedia
-                  component="img"
-                  alt="Contemplative Reptile"
-                  height="140"
-                  src={element[adapter.value]}
-                  title="Contemplative Reptile"
-                />
+                <CardMedia component="img" height="140" src={element[adapter.value]} />
               ) : (
                 <CardContent>{element[adapter.value]}</CardContent>
               )}
