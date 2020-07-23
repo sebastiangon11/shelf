@@ -1,17 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Avatar,
-  Typography,
-  Divider,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea
-} from '@material-ui/core';
+import { Typography, Card, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
