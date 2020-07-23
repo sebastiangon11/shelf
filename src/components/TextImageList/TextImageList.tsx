@@ -1,8 +1,11 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, Avatar, Typography, Divider } from '@material-ui/core';
+import { Typography, Card, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    margin: theme.spacing(1)
+  },
   thumbnail: {
     height: 150,
     width: '70%',
@@ -44,30 +47,25 @@ export const TextImageList: React.FC<TextImageListProps> = ({
   const classes = useStyles();
 
   return (
-    <List>
+    <div>
       {elements.length === 0 && (
         <Typography align="center" variant="h6">
           {empty}
         </Typography>
       )}
       {elements.map((element) => (
-        <React.Fragment key={element[adapter.id || 'id']}>
-          <ListItem component="li" onClick={() => onElementClick(element)} button dense>
-            {isImage(element) ? (
-              <Avatar className={classes.thumbnail} src={element[adapter.value]} />
-            ) : (
-              <ListItemText
-                primary={
-                  <Typography classes={{ root: classes.ellipsis }} variant="caption">
-                    {element[adapter.value]}
-                  </Typography>
-                }
-              />
-            )}
-          </ListItem>
-          <Divider />
-        </React.Fragment>
+        <div key={element[adapter.id]} className={classes.root}>
+          <Card raised onClick={() => onElementClick(element)}>
+            <CardActionArea>
+              {isImage(element) ? (
+                <CardMedia component="img" height="140" src={element[adapter.value]} />
+              ) : (
+                <CardContent>{element[adapter.value]}</CardContent>
+              )}
+            </CardActionArea>
+          </Card>
+        </div>
       ))}
-    </List>
+    </div>
   );
 };

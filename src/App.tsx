@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    background: 'transparent',
     border: 0
   },
   main: {

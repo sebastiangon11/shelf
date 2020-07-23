@@ -2,9 +2,9 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useClipboard } from './useClipboard';
-import { StoreContext } from '../context/store-context';
-import { ElectronContext } from '../context/electron-context';
-import { ClipboardItem } from '../shared/ClipboardItem';
+import { StoreContext } from '../../context/store-context';
+import { ElectronContext } from '../../context/electron-context';
+import { ClipboardItem } from '../../shared/ClipboardItem';
 
 let storeMock = [new ClipboardItem('element-from-store'), new ClipboardItem('last-from-store')];
 let clipboardMock: string = '';
