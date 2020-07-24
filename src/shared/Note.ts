@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class Note {
   id: string;
-  name: string | undefined;
+  name: string;
   editorState: any;
 
   constructor(name: string, editorState: any, id?: string) {

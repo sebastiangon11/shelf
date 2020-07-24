@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     boxSizing: 'border-box',
     overflow: 'auto',
-    padding: theme.spacing(2),
     borderLeft: `1px solid ${theme.palette.divider}`
   }
 }));

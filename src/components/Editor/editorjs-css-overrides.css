@@ -1,0 +1,7 @@
+.ce-inline-toolbar {
+  color: black;
+}
+
+.ce-block--selected .ce-block__content {
+  background: #677f927a;
+}

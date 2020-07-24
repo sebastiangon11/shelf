@@ -8,6 +8,19 @@ const overrides = {
         height: '100vh',
         boxSizing: 'border-box' as const,
         overflow: 'hidden'
+      },
+      body: {
+        overflow: 'overlay'
+      },
+      '::-webkit-scrollbar': {
+        width: 10,
+        height: 10
+      },
+      '::-webkit-scrollbar-thumb': {
+        background: 'rgba(90, 90, 90)'
+      },
+      '::-webkit-scrollbar-track': {
+        background: 'rgba(0, 0, 0, 0.2)'
       }
     }
   }

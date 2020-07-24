@@ -51,25 +51,22 @@ describe('useNotes', () => {
     expect(notes).toHaveLength(3);
   });
 
-  test('should save the new note state on the store', () => {
+  test('should remove the note from the store', () => {
     const { result } = renderHook(() => useNotes(), {
       wrapper: makeWrapper({ storeContextMock })
     });
 
-    const [notesT0, saveNote] = result.current;
+    const [notesT0, _, deleteNote] = result.current;
 
-    const note = notesT0[0];
-
-    const newValue = { foo: 'bar' };
-    note.editorState = newValue;
+    const lengthBeforeDelete = notesT0.length;
 
     act(() => {
-      saveNote(note);
+      deleteNote(notesT0[0]);
     });
 
     const [notesT1] = result.current;
 
-    expect(notesT1[0].editorState).toEqual(newValue);
+    expect(notesT1).toHaveLength(lengthBeforeDelete - 1);
     expect(storeContextMock.set).toHaveBeenCalledTimes(1);
   });
 });
