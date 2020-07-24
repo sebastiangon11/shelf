@@ -16,8 +16,23 @@ export const useNotes = () => {
       setNotes(_notes);
     } catch (error) {
       console.error(`Error saving note: ${note.toString()}, error: ${error}`);
+      throw error;
     }
   };
 
-  return [Array.from(notes.values()), saveNote] as const;
+  const deleteNote = (note: Note) => {
+    try {
+      const _notes = new Map(notes);
+      if (_notes.has(note.id)) {
+        _notes.delete(note.id);
+        store.set('notes', [...Array.from(_notes.entries())]);
+        setNotes(_notes);
+      }
+    } catch (error) {
+      console.error(`Error removing note: ${note.toString()}, error: ${error}`);
+      throw error;
+    }
+  };
+
+  return [Array.from(notes.values()), saveNote, deleteNote] as const;
 };
