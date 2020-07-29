@@ -6,6 +6,12 @@ import { Header } from './containers/Header/Header';
 import { ClipboardHistory } from './containers/ClipboardHistory/ClipboardHistory';
 import { Notes } from './containers/Notes/Notes';
 
+import Mousetrap from 'mousetrap';
+import './plugins/mousetrap/mousetrap-global-bind';
+
+import { PreferencesService } from '../src/shared/services/Preferences-service';
+import { PREFERENCES_IDS } from './shared/constants';
+
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -42,17 +48,16 @@ const App: React.FC = () => {
     width: drawerWidth
   });
 
-  const toggleDrawer = () => setDrawer({ ...drawer, isOpen: !drawer.isOpen });
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === 'Semicolon') toggleDrawer();
-  };
-
   React.useEffect(() => {
-    // TODO: Change fot configurable shortcut
-    // TODO: Multiple strokes are quick clipboard selection ?
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    const hot =
+      PreferencesService.getPreference(PREFERENCES_IDS.SHORTCUT_TOGGLE_CLIPBOARD_HISTORY)?.value ||
+      ';';
+    Mousetrap.bindGlobal(`meta+shift+${hot}`, (_) => {
+      setDrawer({ ...drawer, isOpen: !drawer.isOpen });
+      return false;
+    });
+
+    return () => Mousetrap.unbind(hot);
   });
 
   return (
@@ -71,7 +76,7 @@ const App: React.FC = () => {
           [classes.mainShift]: drawer.isOpen
         })}
       >
-        <Header title="Shelf" />
+        <Header />
         <Notes />
       </section>
     </React.Fragment>

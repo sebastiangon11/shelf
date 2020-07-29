@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useClipboard } from '../../hooks/useClipboard/useClipboard';
-import { ClipboardItem } from '../../shared/ClipboardItem';
+import { ClipboardItem } from '../../shared/entities/ClipboardItem';
 import { TextImageList } from '../../components/TextImageList/TextImageList';
 
 interface ClipboardHistoryProps {}

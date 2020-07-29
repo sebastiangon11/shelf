@@ -1,38 +1,29 @@
 import React from 'react';
-import { StoreContext } from '../../context/store-context';
-import { ElectronContext } from '../../context/electron-context';
-import { ClipboardItem } from '../../shared/ClipboardItem';
+import { ClipboardService } from '../../shared/services/Clipboard-service';
+import { ClipboardItem } from '../../shared/entities/ClipboardItem';
 
 export const useClipboard = () => {
-  const store = React.useContext(StoreContext);
-  const electron = React.useContext(ElectronContext);
   const [history, setHistory] = React.useState<ClipboardItem[]>([]);
 
   React.useEffect(() => {
-    const rawHistory = store.get('clipboard') || [];
-    setHistory(rawHistory.map((element: any) => new ClipboardItem(element.value, element.id)));
+    try {
+      setHistory(ClipboardService.getHistory());
+    } catch (error) {
+      console.error(error.message);
+      setHistory([]);
+    }
   }, []);
 
   React.useEffect(() => {
     const readClipboard = () => {
       try {
-        const text = electron.clipboard.readText();
-        const image = electron.clipboard.readImage();
-
-        if (!text && image.isEmpty()) return;
-
-        const currentValue = text || image.toDataURL();
-
-        if (currentValue === history[0]?.value) return;
-
-        const newElement = new ClipboardItem(currentValue);
-        const historyWithoutNewElement = history.filter((item) => item.value !== newElement.value);
-        const historyWithNewElementFirst = [newElement, ...historyWithoutNewElement];
-        const truncatedHistory = historyWithNewElementFirst.slice(0, 30);
-        store.set('clipboard', truncatedHistory);
-        setHistory(truncatedHistory);
-      } catch (err) {
-        console.error('Error reading from clipboard: ', err);
+        const updatedClipboard = ClipboardService.readClipboard();
+        if (updatedClipboard) {
+          setHistory(updatedClipboard);
+        }
+      } catch (error) {
+        console.error(error.message);
+        setHistory([]);
       }
     };
 
@@ -42,13 +33,13 @@ export const useClipboard = () => {
 
   const setItem = (element: ClipboardItem) => {
     try {
-      if (element.isImage()) {
-        electron.clipboard.writeImage(electron.nativeImage.createFromDataURL(element.value));
-      } else {
-        electron.clipboard.writeText(element.value);
+      const updatedHistory = ClipboardService.setItem(element);
+      if (updatedHistory) {
+        setHistory(updatedHistory);
       }
     } catch (error) {
-      console.error(`Failing to copy ${element.value}, error: ${error}`);
+      console.error(error.message);
+      setHistory([]);
     }
   };
 

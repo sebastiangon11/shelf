@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     overflow: 'auto',
     borderLeft: `1px solid ${theme.palette.divider}`
+  },
+  iconRoot: {
+    borderRadius: 0
   }
 }));
 
@@ -80,7 +83,12 @@ export const TabPanel: React.FC<TabPanelProps> = ({ children, onTabCreated }) =>
       >
         {tabs.props.children}
         {onTabCreated && (
-          <IconButton data-testid="tabpanel-newtab" onClick={handleNewTabClick} color="secondary">
+          <IconButton
+            className={classes.iconRoot}
+            data-testid="tabpanel-newtab"
+            onClick={handleNewTabClick}
+            color="secondary"
+          >
             <AddBoxOutlinedIcon />
           </IconButton>
         )}

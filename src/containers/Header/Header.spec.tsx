@@ -15,11 +15,6 @@ describe('Header component', () => {
     expect(screen.getByRole('menu')).toBeInTheDocument();
   });
 
-  test('should display provided title', () => {
-    render(<Header title="Test Title" />);
-    expect(screen.getByRole('heading', { name: 'Test Title' })).toBeInTheDocument();
-  });
-
   test('display the SearchBox', () => {
     render(<Header />);
     expect(screen.getByTestId('header-searchbox')).toBeInTheDocument();

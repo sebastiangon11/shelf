@@ -12,6 +12,6 @@ export class Note {
   }
 
   public toString() {
-    return `${this.id} - ${this.name}`;
+    return `Note: ${this.id} - ${this.name}`;
   }
 }

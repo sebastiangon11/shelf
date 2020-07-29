@@ -3,23 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "productName": "Shelf",
+  "author": "sebastiangon11",
   "main": "electron/main.js",
   "homepage": "./",
   "scripts": {
     "start": "export BROWSER=none && react-scripts start",
     "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron ./build/electron/main.js",
     "build": "react-scripts build",
-    "build-electron": "tsc --project ./electron/tsconfig.json  --outDir build/electron && mkdir -p build/src/shared/assets && cp -r src/shared/assets/. build/src/shared/assets",
-    "test": "react-scripts test",
+    "build-electron": "tsc --project ./electron/tsconfig.json  --outDir build && mkdir -p build/src/shared/assets && cp -rf src/shared/assets/. build/src/shared/assets",
+    "test": "react-scripts test --watchPathIgnorePatterns store-mock.json",
     "eject": "react-scripts eject",
     "package:mac": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
     "package:win": "electron-builder build --win -c.extraMetadata.main=build/electron/main.js --publish never",
     "dist:mac": "npm run build && npm run build-electron && npm run package:mac",
     "dist:win": "npm run build && npm run build-electron && npm run package:win",
-    "pack": "electron-builder --dir build --mac --win -c.extraMetadata.main=build/electron/main.js --publish never",
     "lint": "eslint"
   },
   "dependencies": {
+    "@editorjs/checklist": "^1.1.0",
+    "@editorjs/code": "^2.5.0",
+    "@editorjs/editorjs": "^2.18.0",
+    "@editorjs/header": "^2.5.0",
+    "@editorjs/list": "^1.5.0",
+    "@editorjs/marker": "^1.2.2",
+    "@editorjs/table": "^1.2.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -40,10 +47,12 @@
     "electron-settings": "^4.0.2",
     "lodash.debounce": "^4.0.8",
     "menubar": "^9.0.1",
+    "mousetrap": "^1.6.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.13.1",
+    "simple-image-editorjs": "^1.4.0",
     "typescript": "^3.7.5",
     "uuid": "^8.2.0"
   },
@@ -81,8 +90,8 @@
     },
     "publish": {
       "provider": "github",
-      "repo": "electron-cra-example",
-      "owner": "johndyer24"
+      "repo": "shelf",
+      "owner": "sebastiangon11"
     }
   }
 }

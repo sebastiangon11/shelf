@@ -14,7 +14,7 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
       },
-      "program": "${workspaceRoot}/electron/main.js",
+      "program": "${workspaceRoot}/build/electron/main.js",
       "protocol": "inspector"
     },
     {
