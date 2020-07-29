@@ -7,17 +7,20 @@
   "main": "electron/main.js",
   "homepage": "./",
   "scripts": {
-    "start": "export BROWSER=none && react-scripts start",
-    "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron ./build/electron/main.js",
     "build": "react-scripts build",
-    "build-electron": "tsc --project ./electron/tsconfig.json  --outDir build && mkdir -p build/src/shared/assets && cp -rf src/shared/assets/. build/src/shared/assets",
-    "test": "react-scripts test --watchPathIgnorePatterns store-mock.json",
-    "eject": "react-scripts eject",
+    "start": "export BROWSER=none && react-scripts start",
+    "build-electron": "tsc --project ./electron/tsconfig.json --outDir build",
+    "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron ./build/electron/main.js",
     "package:mac": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
+    "deploy:mac": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish always",
     "package:win": "electron-builder build --win -c.extraMetadata.main=build/electron/main.js --publish never",
-    "dist:mac": "npm run build && npm run build-electron && npm run package:mac",
-    "dist:win": "npm run build && npm run build-electron && npm run package:win",
-    "lint": "eslint"
+    "test": "react-scripts test --watchPathIgnorePatterns store-mock.json",
+    "lint": "eslint",
+    "prebuild-electron": "rm -rf build/",
+    "postbuild-electron": "mkdir -p build/src/shared/assets && cp -rf src/shared/assets/. build/src/shared/assets",
+    "prepackage:mac": "npm run build && npm run build-electron",
+    "prepackage:win": "npm run build && npm run build-electron",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@editorjs/checklist": "^1.1.0",
@@ -90,6 +93,7 @@
     },
     "publish": {
       "provider": "github",
+      "token": "(Add github access token and rome this for publishing versions)",
       "repo": "shelf",
       "owner": "sebastiangon11"
     }
