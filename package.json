@@ -1,6 +1,6 @@
 {
   "name": "shelf",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "productName": "Shelf",
   "author": "sebastiangon11",
@@ -12,14 +12,15 @@
     "build-electron": "tsc --project ./electron/tsconfig.json --outDir build",
     "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron ./build/electron/main.js",
     "package:mac": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
-    "deploy:mac": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish always",
     "package:win": "electron-builder build --win -c.extraMetadata.main=build/electron/main.js --publish never",
+    "deploy": "electron-builder build --mac --win -c.extraMetadata.main=build/electron/main.js --publish always",
     "test": "react-scripts test --watchPathIgnorePatterns store-mock.json",
     "lint": "eslint",
-    "prebuild-electron": "rm -rf build/",
+    "prebuild-electron": "rm -rf build/src/ && rm -rf build/electron/",
     "postbuild-electron": "mkdir -p build/src/shared/assets && cp -rf src/shared/assets/. build/src/shared/assets",
     "prepackage:mac": "npm run build && npm run build-electron",
     "prepackage:win": "npm run build && npm run build-electron",
+    "predeploy": "npm run build && npm run build-electron",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -93,7 +94,7 @@
     },
     "publish": {
       "provider": "github",
-      "token": "(Add github access token and rome this for publishing versions)",
+      "token": "(Set a personal access token - https://github.com/settings/tokens - add it to GH_TOKEN env variable and remove this line to publish)",
       "repo": "shelf",
       "owner": "sebastiangon11"
     }
