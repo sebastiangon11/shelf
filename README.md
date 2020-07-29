@@ -11,13 +11,9 @@ Shelf is always available with a customizable shortcut. This allows you to take 
 You also get clipboard history out of the box.
 
 
-[DEMO GIF]
-
 # Download
 
-[WINDOWS]
-
-[MAC]
+https://github.com/sebastiangon11/shelf/releases
 
 ## Contribute
 
