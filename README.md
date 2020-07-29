@@ -1,12 +1,15 @@
-# Shelf
+[logo]: https://github.com/sebastiangon11/shelf/blob/master/assets/icon.png?raw=true
 
-[LOGO]
+<h1 style="text-align:center">Shelf</h1>
+<p align="center">
+  <img width="250" height="250" src="https://github.com/sebastiangon11/shelf/blob/master/assets/icon.png?raw=true" />
+</p>
 
 Shelf is a super dynamic Note-taking application build on [Electron](https://www.electronjs.org/docs).
 
 Shelf is always available with a customizable shortcut. This allows you to take your notes without losing focus or having to change screens and lose your time.
 
-[IMAGE]
+<!-- <div style="text-align:center"><img width="900" height="600" src="https://media.giphy.com/media/Qu1cSPoG4kSYsg6HDJ/giphy.gif" /></div> -->
 
 # Download
 
