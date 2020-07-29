@@ -1,38 +1,23 @@
-import React from 'react';
-import { StoreContext } from '../../context/store-context';
-import { Note } from '../../shared/Note';
+import React, { useEffect } from 'react';
+import { NotesService } from '../../shared/services/Notes-service';
+import { Note } from '../../shared/entities/Note';
 
 export const useNotes = () => {
-  const store = React.useContext(StoreContext);
+  const [notes, setNotes] = React.useState<Note[]>([]);
 
-  const rawNotes = store.get('notes') || new Map();
-  const [notes, setNotes] = React.useState<Map<string, Note>>(new Map(rawNotes));
+  useEffect(() => {
+    setNotes(NotesService.getAllNotes());
+  }, []);
 
   const saveNote = (note: Note) => {
-    try {
-      const _notes = new Map(notes);
-      _notes.set(note.id, note);
-      store.set('notes', [...Array.from(_notes.entries())]);
-      setNotes(_notes);
-    } catch (error) {
-      console.error(`Error saving note: ${note.toString()}, error: ${error}`);
-      throw error;
-    }
+    const updatedNotes = NotesService.saveNote(note);
+    setNotes(updatedNotes);
   };
 
   const deleteNote = (note: Note) => {
-    try {
-      const _notes = new Map(notes);
-      if (_notes.has(note.id)) {
-        _notes.delete(note.id);
-        store.set('notes', [...Array.from(_notes.entries())]);
-        setNotes(_notes);
-      }
-    } catch (error) {
-      console.error(`Error removing note: ${note.toString()}, error: ${error}`);
-      throw error;
-    }
+    const updatedNotes = NotesService.deleteNote(note);
+    setNotes(updatedNotes);
   };
 
-  return [Array.from(notes.values()), saveNote, deleteNote] as const;
+  return [notes, saveNote, deleteNote] as const;
 };

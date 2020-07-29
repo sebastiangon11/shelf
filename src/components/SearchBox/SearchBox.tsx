@@ -10,6 +10,7 @@ interface SearchBoxProps {
 
 const useStyles = makeStyles((theme) => ({
   search: {
+    '-webkit-app-region': 'no-drag',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),

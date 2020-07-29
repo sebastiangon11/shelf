@@ -12,7 +12,8 @@ const { remote, clipboard, nativeImage } = electron;
 const electronContext = {
   quit: () => remote.getCurrentWindow().close(),
   clipboard,
-  nativeImage
+  nativeImage,
+  remote
 };
 
 export const ElectronContext = createContext(electronContext);

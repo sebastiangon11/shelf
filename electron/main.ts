@@ -1,10 +1,10 @@
-import { app, ipcMain, globalShortcut, screen } from 'electron';
+import { app, globalShortcut } from 'electron';
 import { menubar, Menubar } from 'menubar';
-import electronSettings from 'electron-settings';
-import path from 'path';
-import url from 'url';
-
-console.info('Setting file located at: ', electronSettings.file());
+import { Store } from '../src/shared/store/store';
+import config from './application-config';
+import { PreferencesService } from '../src/shared/services/Preferences-service';
+import { initializePreferences } from './initialize-preferences';
+import { PREFERENCES_IDS } from '../src/shared/constants';
 
 if (process.env.NODE_ENV === 'development') {
   const debug = require('electron-debug');
@@ -15,67 +15,35 @@ let mb: Menubar | null = null;
 let isShowing = false;
 
 const toggleWindow = () => {
+  const bounds: any = mb?.window?.getBounds();
   isShowing ? mb?.hideWindow() : mb?.showWindow();
   isShowing = !isShowing;
+  mb?.window?.setBounds(bounds);
 };
 
-const init = async () => {
-  const dir =
-    process.env.ELECTRON_START_URL ||
-    url.format({
-      pathname: path.join(__dirname, '../index.html'),
-      protocol: 'file:',
-      slashes: true
-    });
-  const index = dir;
-  const preloadWindow = true;
-  const frame = false;
-  const icon = path.join(__dirname, '..', 'src/shared/assets/icons', 'icon.png');
-  const webPreferences = {
-    preload: path.join(__dirname, 'preload.js'),
-    nodeIntegration: true,
-    enableRemoteModule: true
-  };
+const init = () => {
+  initializePreferences();
 
-  let width: number = parseInt((screen.getPrimaryDisplay().size.width - 300).toString());
-  if (await electronSettings.has('width')) {
-    width = parseInt(((await electronSettings.get('width')) || '').toString());
-  }
+  /** Get preferences and stored configs */
+  const openAtLogin: boolean = PreferencesService.getPreference(
+    PREFERENCES_IDS.SHORTCUT_TOGGLE_WINDOW
+  )?.value as boolean;
 
-  let height: number = 650;
-  if (await electronSettings.has('height')) {
-    height = parseInt(((await electronSettings.get('height')) || '').toString());
-  }
+  const toggleKey: string = PreferencesService.getPreference(PREFERENCES_IDS.SHORTCUT_TOGGLE_WINDOW)
+    ?.value as string;
 
-  const browserWindow = { frame, webPreferences, width, height };
-  const showDockIcon = false;
-  const windowPosition = 'topCenter' as const;
+  mb = menubar(config());
 
-  const config = {
-    dir,
-    index,
-    preloadWindow,
-    browserWindow,
-    showDockIcon,
-    windowPosition,
-    icon
-  };
-  mb = menubar(config);
-
-  const onWindowBlur = () => (isShowing = false);
-
-  const onWindowResize = () => {
-    const [width, height]: any = mb?.window?.getSize();
-    electronSettings.set('width', width);
-    electronSettings.set('height', height);
+  const savePosition = (event: any) => {
+    Store.set('position', event.sender.getBounds());
   };
 
   mb.on('ready', () => {
-    console.log('App ready');
-    mb?.app.setLoginItemSettings({ openAtLogin: true });
-    mb?.window?.on('blur', onWindowBlur);
-    mb?.window?.on('resize', onWindowResize);
-    globalShortcut.register('CommandOrControl+Shift+l', toggleWindow);
+    console.info('App ready');
+    mb?.app.setLoginItemSettings({ openAtLogin });
+    mb?.window?.on('blur', () => (isShowing = false));
+    mb?.window?.on('close', savePosition);
+    globalShortcut.register(`CommandOrControl+Shift+${toggleKey}`, toggleWindow);
   });
 };
 

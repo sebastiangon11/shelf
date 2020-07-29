@@ -10,42 +10,47 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { SearchBox } from '../../components/SearchBox/SearchBox';
 import { ElectronContext } from '../../context/electron-context';
+import { Modal, Divider } from '@material-ui/core';
+import { Preferences } from '../Preferences/Preferences';
 
-interface HeaderProps {
-  title?: string;
-}
+interface HeaderProps {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     color: 'rgba(0, 0, 0, 0.87)',
-    background: 'linear-gradient(90deg, rgba(23,73,134,1) 0%, rgba(0,212,255,1) 100%)'
-  },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    },
-    fontWeight: 200
+    background: 'linear-gradient(90deg, rgba(23,73,134,1) 0%, rgba(0,212,255,1) 100%)',
+    '-webkit-app-region': 'drag'
   },
   toolbar: {
     minHeight: theme.spacing(6),
     justifyContent: 'space-between'
+  },
+  iconRoot: {
+    '-webkit-app-region': 'no-drag'
   }
 }));
 
-export const Header: React.FC<HeaderProps> = (props) => {
-  const { toolbar, appBar } = useStyles();
+export const Header: React.FC<HeaderProps> = () => {
+  const { toolbar, appBar, iconRoot } = useStyles();
   const { quit } = useContext(ElectronContext);
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
+  const [showPreferences, setShowPreferences] = React.useState(false);
+
+  const closePreferences = () => {
+    setAnchorEl(null);
+    setShowPreferences(false);
+  };
 
   return (
     <AppBar className={appBar} position="static">
       <Toolbar className={toolbar}>
+        <span />
+        <SearchBox data-testid="header-searchbox" />
         <IconButton
           onClick={(event: React.MouseEvent) => setAnchorEl(event.currentTarget)}
           edge="start"
           color="inherit"
+          classes={{ root: iconRoot }}
         >
           <MenuIcon />
         </IconButton>
@@ -55,11 +60,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
           open={Boolean(anchorEl)}
           onClose={() => setAnchorEl(null)}
         >
+          <MenuItem onClick={() => setShowPreferences(true)}>Preferences</MenuItem>
+          <Divider />
           <MenuItem onClick={quit}>Quit</MenuItem>
         </Menu>
-        <Typography variant="h6">{props.title}</Typography>
-        <SearchBox data-testid="header-searchbox" />
       </Toolbar>
+      <Modal open={showPreferences} onClose={closePreferences}>
+        <Preferences onSave={closePreferences} />
+      </Modal>
     </AppBar>
   );
 };

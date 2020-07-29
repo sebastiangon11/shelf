@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { Note } from '../../shared/Note';
+import { Note } from '../../shared/entities/Note';
 import { useNotes } from '../../hooks/useNotes/useNotes';
 import { TabPanel, Panels, Panel, Tabs, Tab } from '../../components/TabPanel/TabPanel';
 import { Editor } from '../../components/Editor/Editor';
@@ -49,7 +49,7 @@ export const Notes = () => {
         </Tabs>
         <Panels>
           {notes.map((note) => (
-            <Panel>
+            <Panel key={note.id}>
               <Editor id={note.id} state={note.editorState} onChange={handleEditorSave(note)}>
                 <EditorMenu
                   title={note.name}

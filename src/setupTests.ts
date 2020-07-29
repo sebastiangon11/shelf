@@ -7,6 +7,9 @@ import MutationObserver from '@sheerun/mutationobserver-shim';
 
 (<any>window).electron = {};
 (<any>window).electronSettings = {};
+(<any>window).Mousetrap = {
+  unbind: jest.fn()
+};
 
 if (!global.window.MutationObserver) {
   global.window.MutationObserver = MutationObserver;
