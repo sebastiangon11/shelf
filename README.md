@@ -5,13 +5,14 @@
 
 Shelf is a super dynamic Note-taking application build on [Electron](https://www.electronjs.org/docs).<br />
 
-Shelf is always available with a customizable shortcut. This allows you to take your notes without losing focus or having to change screens and lose your time. <br />
-You also get clipboard history out of the box.
+Shelf is always available with a customizable shortcut. This allows you to take your notes without losing focus or having to change screens and lose your time.
+
+You also get clipboard history with image and text support out of the box.
 
 ![](https://github.com/sebastiangon11/shelf/blob/master/assets/demo.gif?raw=true)
 
 
-# Download
+# Download for Max & Windows
 
 https://github.com/sebastiangon11/shelf/releases
 
