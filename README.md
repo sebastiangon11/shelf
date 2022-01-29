@@ -12,7 +12,7 @@ You also get clipboard history with image and text support out of the box.
 ![](https://github.com/sebastiangon11/shelf/blob/master/assets/demo.gif?raw=true)
 
 
-# Download for Max & Windows
+# Download for Mac & Windows
 
 https://github.com/sebastiangon11/shelf/releases
 
