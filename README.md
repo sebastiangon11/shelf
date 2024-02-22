@@ -1,7 +1,4 @@
 <h1 style="text-align:center">Shelf</h1>
-<p align="center">
-  <img width="250" height="250" src="https://github.com/sebastiangon11/shelf/blob/master/assets/icon.png?raw=true" />
-</p>
 
 Shelf is a super dynamic Note-taking application build on [Electron](https://www.electronjs.org/docs).<br />
 
